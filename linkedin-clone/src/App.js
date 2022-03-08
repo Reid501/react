@@ -10,27 +10,27 @@ import { auth } from './firebase';
 
 function App() {
   const user = useSelector(selectUser);
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   console.log(user);
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(userAuth => {
-  //     if (userAuth) {
-  //       // User is logged in
-  //       dispatch(
-  //         login({
-  //         email: userAuth.email,
-  //         uid: userAuth.uid,
-  //         displayName: userAuth.displayName,
-  //         photoUrl: userAuth.photoURL,
-  //       })
-  //       );
-  //     } else {
-  //       // User is logged out
-  //       dispatch(logout());
-  //     }
-  //   })
-  // }, [])
+  useEffect(() => {
+    auth.onAuthStateChanged(userAuth => {
+      if (userAuth) {
+        // User is logged in
+        dispatch(
+          login({
+          email: userAuth.email,
+          uid: userAuth.uid,
+          displayName: userAuth.displayName,
+          photoUrl: userAuth.photoURL,
+        })
+        );
+      } else {
+        // User is logged out
+        dispatch(logout());
+      }
+    })
+  }, [])
 
   return (
     <div className="app">
