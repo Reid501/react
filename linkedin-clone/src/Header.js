@@ -2,7 +2,6 @@ import React from "react";
 import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
 import logo from './linkedin.png';
-import user from './user.png';
 import HeaderOption from "./HeaderOption";
 import HomeIcon from '@mui/icons-material/Home';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
@@ -14,6 +13,7 @@ import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
 
 function Header () {
+
 
     const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ function Header () {
                 <HeaderOption Icon={BusinessCenterIcon} title="Jobs"/>
                 <HeaderOption Icon={ChatIcon} title="Messaging"/>
                 <HeaderOption Icon={NotificationsIcon} title="Notifications"/>
-                <HeaderOption avatar={user} title="Me" onClick={logOutOfApp} />
+                <HeaderOption avatar={true} title="Me" onClick={logOutOfApp} />
             </div>
         </div>
     )
