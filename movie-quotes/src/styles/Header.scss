@@ -1,0 +1,24 @@
+$yellow-line: 1px solid #FFE20A;
+
+.header{
+    background-color: #1030AD;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2, p {
+        color: #FFE20A;
+    }
+
+    &__top {
+        width: 40%;
+        margin: 20 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-top: $yellow-line;
+        border-left: $yellow-line;
+        border-radius: $yellow-line;
+    }
+}
