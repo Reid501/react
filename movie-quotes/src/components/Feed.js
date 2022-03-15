@@ -13,7 +13,9 @@ function Feed() {
                     <input type="text" />
                     <button type="submit">Send</button>
                 </form>
+
             </div>
+            <h4>Add your favourite movie quote and try to guess other users quotes.</h4>
         </div>
     </div>
   )
