@@ -2,15 +2,19 @@ $yellow-line: 1px solid #FFE20A;
 
 .header{
     background-color: #1030AD;
-    flex-direction: column;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
     h2, p {
         color: #FFE20A;
     }
 
     &__top {
+        padding: 10px;
         width: 40%;
         margin: 20 auto;
         display: flex;
@@ -19,6 +23,7 @@ $yellow-line: 1px solid #FFE20A;
         align-items: center;
         border-top: $yellow-line;
         border-left: $yellow-line;
-        border-radius: $yellow-line;
+        border-bottom: $yellow-line;
     }
+    
 }
