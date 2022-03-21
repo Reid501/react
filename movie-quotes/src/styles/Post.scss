@@ -39,19 +39,77 @@
 
     &__button {
         display: flex;
-        align-items: center;
+        justify-content: space-between;
+        width: 100%;
         margin: 5px;
 
-        &:hover {
-            cursor: pointer;
-        }
 
-        &--like {
-            margin-right: 40px;
-        }
 
         p {
             margin-left: 5px;
+        }
+    }
+
+    &__commentBtn {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+
+    &__commentCount {
+        display: flex;
+        align-items: center;
+    }
+
+    &__inputContainer {
+        background-color: whitesmoke;
+        border: 1px solid lightgray;
+        padding: 15px;
+        padding-bottom: 20px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        div:first-child {
+            margin-right: 10px;
+        }
+
+        h4 {
+            color: #FFE20A;
+            text-align: center;
+            margin-top: 20px;
+        }
+    }
+
+    &__input {
+        border: 1px solid lightgray;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        padding: 10px;
+        color: gray;
+        padding-left: 15px;
+        width: 100%;
+    }
+
+    form {
+        display: flex;
+        width: 100%;
+
+        input {
+            border: none;
+            flex: 1;
+            margin-left: 10px;
+            outline-width: 0;
+            font-weight: 600;
+        }
+
+        button {
+            display: none;
         }
     }
 }
