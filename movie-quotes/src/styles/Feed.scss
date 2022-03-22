@@ -43,3 +43,16 @@
         }
     }
 }
+
+@media screen and ( max-width: 1200px ) {
+    .feed {
+        flex: 0.7;
+    }
+}
+
+@media screen and ( max-width: 800px ) {
+    .feed {
+        flex: 1;
+        margin-top: 40px;
+    }
+}

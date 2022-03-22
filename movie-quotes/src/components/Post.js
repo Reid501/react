@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, forwardRef } from 'react';
 import { ChatOutlined, FormatQuote } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import '../styles/Post.scss';
 import { db } from './firebase';
-import firebase from "firebase/compat/app"
+import firebase from "firebase/compat/app";
 import Comments from './Comments';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
+import FlipMove from 'react-flip-move';
 
-function Post({ name, description, message, photoUrl, postId}) {
+const Post = forwardRef(({ name, message, postId, photoUrl}, ref) => {
     const [input, setInput] = useState('');
     const [comments, setComments] = useState([]);
     const [visiable, setVisiable] = useState('hide');
+    const user = useSelector(selectUser);
 
-
+    // Get Collection and store it in comments
     useEffect(() => {
         db.collection(postId + 'comments').orderBy('timestamp', 'desc').onSnapshot(snapshot => 
             setComments(snapshot.docs.map(doc => (
@@ -21,26 +23,26 @@ function Post({ name, description, message, photoUrl, postId}) {
                     id: doc.id,
                     data: doc.data(),
                     size: doc.size
-
                 }
             )))
         )
-    }, [postId])
+    }, [])
 
-
+    // Add post to the collection
     const sendComment = e => {
         e.preventDefault();
 
         db.collection(postId + 'comments').add({
-            name: 'Alex',
+            name: user.displayName,
             message: input,
-            photoUrl: '',
+            photoUrl: user.photoUrl || '',
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
 
         setInput('')
     }
 
+    // Show comments
     const showComments = () => {
         if (visiable === '') {
             setVisiable('hide');
@@ -49,15 +51,14 @@ function Post({ name, description, message, photoUrl, postId}) {
         }
     }
 
-    const user = useSelector(selectUser);
+    
 
   return (
-    <div className='post'>
+    <div ref={ref} className='post'>
         <div className="post__header">
-            <Avatar />
+            { user.displayName && <Avatar src={photoUrl}>{user?.displayName[0].toUpperCase()}</Avatar>}
             <div className="post__info">
                 <h2>{name}</h2>
-                <p>{description}</p>
             </div>
         </div>
 
@@ -79,7 +80,7 @@ function Post({ name, description, message, photoUrl, postId}) {
 
 
         <div className={'post__inputContainer ' + visiable}>
-                 <Avatar src={user.photoUrl}/>
+                 { user.displayName && <Avatar src={user.photoUrl}>{user?.displayName[0].toUpperCase()}</Avatar>}
                 <div className="post__input">
                     <FormatQuote />
                 
@@ -92,7 +93,7 @@ function Post({ name, description, message, photoUrl, postId}) {
         </div>
 
         {/* Comments */}
-         
+        <FlipMove>
         {comments.map(({id, data: { name, message, photoUrl} }) => (
             <div className={"comments__section " + visiable}>
               
@@ -106,8 +107,9 @@ function Post({ name, description, message, photoUrl, postId}) {
 
         
             ))}
+        </FlipMove>
     </div>
   )
-}
+})
 
 export default Post

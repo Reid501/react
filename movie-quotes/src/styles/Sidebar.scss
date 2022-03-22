@@ -32,4 +32,27 @@
             margin-bottom: 10px;
         }
     }
+
+    &__logout {
+        margin-top: 20px;
+        background-color: #1030AD;
+        color: #FFE20A;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+@media screen and ( max-width: 1200px ) {
+    .sidebar {
+        flex: 0.3;
+    }
+}
+
+@media screen and ( max-width: 800px ) {
+    .sidebar {
+        flex: 1;
+        margin: 0 20px;
+        position: relative;
+    }
 }

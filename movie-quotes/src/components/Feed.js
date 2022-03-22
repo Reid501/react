@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import '../styles/Feed.scss'
+import React, { useEffect, useState } from 'react';
+import '../styles/Feed.scss';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import Post from './Post';
 import { db } from './firebase';
-import firebase from "firebase/compat/app"
+import firebase from "firebase/compat/app";
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
+import FlipMove from 'react-flip-move';
 
 function Feed() {
     const [input, setInput] = useState('');
@@ -13,29 +14,30 @@ function Feed() {
 
     const user = useSelector(selectUser);
 
+    // Get Collection and store it in posts
     useEffect(() => {
         db.collection("posts").orderBy('timestamp', 'desc').onSnapshot(snapshot => 
             setPosts(snapshot.docs.map(doc => (
                 {
                     id: doc.id,
                     data: doc.data(),
-
                 }
             )))
         )
     }, [])
 
+    // Add post to the collection
     const sendPost = e => {
         e.preventDefault();
 
         db.collection('posts').add({
             name: user.displayName,
             message: input,
-            photoUrl: '',
+            photoUrl: user.photoUrl || '',
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
 
-        setInput('')
+        setInput('');
     }
     return (
         <div className='feed'>
@@ -46,12 +48,12 @@ function Feed() {
                         <input value={input} onChange={e => setInput(e.target.value)} type="text" />
                         <button onClick={sendPost} type="submit">Send</button>
                     </form>
-
                 </div>
                 <h4>Add your favourite movie quote and try to guess other users quotes.</h4>
             </div>
 
             {/* Posts */}
+            <FlipMove>
             {posts.map(({id, data: { name, message, photoUrl} }) => (
                 <Post
                     key={id}
@@ -61,6 +63,7 @@ function Feed() {
                     photoUrl={photoUrl}
                 />
             ))}
+            </FlipMove>
         </div>
     )
 }

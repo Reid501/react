@@ -1,13 +1,13 @@
-import { Avatar } from '@mui/material'
-import React from 'react'
-import '../styles/Comments.scss'
+import { Avatar } from '@mui/material';
+import React from 'react';
+import '../styles/Comments.scss';
 
-function Comments({ name, message, photoUrl }) {
+function Comments({ name, message, photoUrl }){
 
   return (
     <div className='comments'>
         <div className="comments__img">
-            <Avatar src={photoUrl}/>
+          { name && <Avatar src={photoUrl}>{name[0].toUpperCase()}</Avatar>}
         </div>
         <div className="comments__text">
             <h4>{name}</h4>
@@ -15,6 +15,6 @@ function Comments({ name, message, photoUrl }) {
         </div>
     </div>
   )
-}
+};
 
 export default Comments

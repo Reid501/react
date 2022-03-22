@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import '../styles/Login.scss';
 import { auth } from './firebase';
-import { loginNow } from '../features/userSlice'
+import { loginNow } from '../features/userSlice';
 
 function Login() {
     const [login, setLogin] = useState(false);
     const [loginClass, setLoginClass] = useState('');
     const [registerClass, setRegisterClass] = useState('show');
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [film, setFilm] = useState();
-    const [profilePic, setProfilePic] = useState();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [profilePic, setProfilePic] = useState('');
     const dispatch = useDispatch();
 
+    // Switch between login and register
     const showLogin = () => {
         setLogin(true);
         setLoginClass('show');
@@ -27,10 +27,11 @@ function Login() {
         setRegisterClass('show')
     }
 
+    // Refister new user
     const register = (e) => {
         e.preventDefault();
-        if(!name || !film) {
-            return alert('Please provide a name and your favourite film.');
+        if(!name) {
+            return alert('Please provide a name.');
         }
 
         auth.createUserWithEmailAndPassword(email, password).then((userAuth) => {
@@ -44,12 +45,12 @@ function Login() {
                 email: userAuth.user.email,
                 displayName: name,
                 photoUrl: profilePic,
-                film: film,
               }))
             }).catch(error => alert(error));
         })
     }
 
+    // Login to app
     const loginToApp = (e) => {
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password)
@@ -59,7 +60,6 @@ function Login() {
                 email: userAuth.user.email,
                 displayName: userAuth.user.displayName,
                 profileUrl: userAuth.user.photoURL,
-                film: userAuth.user.film
             }))
         }).catch(error => alert(error));
     }
@@ -78,8 +78,6 @@ function Login() {
                     <input value={name} onChange={e => setName(e.target.value)} placeholder={'Full name *required'} type="text" />
                     <label>Profile Pic:</label>
                     <input value={profilePic} onChange={e => setProfilePic(e.target.value)} placeholder={'Profile pic Url (optional)'} type="text" />
-                    <label>Favourite Movie:</label>
-                    <input value={film} onChange={e => setFilm(e.target.value)} placeholder={'Film name *required'} type="text" />
                     <label>Email:</label>
                     <input value={email} onChange={e => setEmail(e.target.value)} placeholder={'Email *required'} type="email" />
                     <label>Password:</label>
