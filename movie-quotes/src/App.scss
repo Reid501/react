@@ -4,3 +4,10 @@
     display: flex;
     margin-top: 20px;
   }
+
+  @media screen and ( max-width: 800px ) {
+    .appBody {
+        flex-direction: column;
+        
+    }
+}
